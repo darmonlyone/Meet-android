@@ -1,13 +1,11 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.meet.R
-import java.util.*
 
 class DailyDateHolder(itemView: View, dailyDateAdapter: DailyDateAdapter) : RecyclerView.ViewHolder(itemView) {
 

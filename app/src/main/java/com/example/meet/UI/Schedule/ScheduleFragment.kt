@@ -4,13 +4,11 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDialogFragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +20,8 @@ import com.example.meet.Models.RoomBookerModel
 import com.example.meet.Models.TimeModel
 import com.example.meet.R
 import com.example.meet.Services.BookService
+import com.example.meet.UI.Schedule.Daily.DailyFragment
+import com.example.meet.UI.Schedule.Weekly.WeeklyFragment
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,6 +40,7 @@ class ScheduleFragment : AppCompatDialogFragment() {
     private lateinit var activeTimeSpinner: Spinner
     private lateinit var popupInputDialogView: View
     private lateinit var dailyFragment: DailyFragment
+    private lateinit var weeklyFragment: WeeklyFragment
 
     private lateinit var validator: Validator
     private lateinit var bookService: BookService
@@ -69,6 +70,9 @@ class ScheduleFragment : AppCompatDialogFragment() {
         bookService = BookService()
         validator = Validator()
 
+        dailyFragment = DailyFragment()
+        weeklyFragment = WeeklyFragment()
+
         setupFragment()
         setupBookingDialogPopup()
         setupActiveTimeSpinner()
@@ -76,11 +80,20 @@ class ScheduleFragment : AppCompatDialogFragment() {
     }
 
     private fun setupFragment() {
-        dailyFragment = DailyFragment()
-        fragmentManager!!.beginTransaction()
-            .replace(R.id.schedule_report_frameLayout, dailyFragment)
-            .commit()
+        setFragment(dailyFragment)
     }
+
+    private fun setFragment(fragment:AppCompatDialogFragment){
+        if (fragment is WeeklyFragment)
+            fragmentManager!!.beginTransaction()
+                .replace(R.id.schedule_report_frameLayout, weeklyFragment)
+                .commit()
+        else if(fragment is DailyFragment)
+            fragmentManager!!.beginTransaction()
+                .replace(R.id.schedule_report_frameLayout, dailyFragment)
+                .commit()
+    }
+
 
     private fun setupActiveTimeSpinner() {
         activeTimeSpinner = popupInputDialogView.findViewById(R.id.book_active_time) as Spinner
@@ -107,6 +120,13 @@ class ScheduleFragment : AppCompatDialogFragment() {
     @SuppressLint("SetTextI18n")
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun setupAction() {
+
+        daily_button.setOnClickListener {
+            setFragment(dailyFragment)
+        }
+        weekly_button.setOnClickListener {
+            setFragment(weeklyFragment)
+        }
 
         add_booking.setOnClickListener {
             alertDialog.show()
@@ -167,7 +187,6 @@ class ScheduleFragment : AppCompatDialogFragment() {
             }
 
         }
-
         dateTextView.setOnClickListener {
             val calmin: Calendar = Calendar.getInstance()
             val day = calmin.get(Calendar.DAY_OF_MONTH)
@@ -193,19 +212,17 @@ class ScheduleFragment : AppCompatDialogFragment() {
             timePickerDialog.updateTime(10,0)
             timePickerDialog.timePicker.setOnTimeChangedListener { timePicker: TimePicker, hour: Int, minute: Int ->
 
-                val minutes: Int = when {
-                    minute <= 7 -> 0
-                    minute <= 22 -> 15
-                    minute <= 37 -> 30
-                    minute <= 52 -> 45
-                    minute >= 8 -> 15
-                    minute >= 23 -> 30
-                    minute >= 38 -> 45
-                    minute >= 53 -> 0
+                val minutes: Int = when (minute) {
+                    in 0..7 -> 0
+                    in 8..22 -> 15
+                    in 23..37 -> 30
+                    in 37..52 -> 45
+                    in 53..59 -> 0
                     else -> 0
                 }
                 timePickerDialog.updateTime(hour, minutes)
             }
+
             timePickerDialog.show()
         }
     }

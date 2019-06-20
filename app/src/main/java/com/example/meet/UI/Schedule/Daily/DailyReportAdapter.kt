@@ -1,4 +1,4 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

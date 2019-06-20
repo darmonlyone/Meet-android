@@ -1,4 +1,4 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
@@ -27,7 +27,7 @@ class DailyDateItem @SuppressLint("SimpleDateFormat") constructor(date: Date) {
     override fun equals(other: Any?): Boolean {
         if (other == null || other !is DailyDateItem)
             return false
-        val ob:DailyDateItem = other
+        val ob: DailyDateItem = other
         return day == ob.day &&
                 dateOfDay == ob.dateOfDay &&
                 year == ob.year &&

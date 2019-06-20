@@ -1,4 +1,4 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ class DailyDateAdapter(val dailyFragment: DailyFragment) : RecyclerView.Adapter<
         val v: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_daily_date, parent, false)
 
-        return DailyDateHolder(v,this)
+        return DailyDateHolder(v, this)
     }
 
     override fun onBindViewHolder(holder: DailyDateHolder, position: Int) {

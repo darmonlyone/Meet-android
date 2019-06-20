@@ -1,4 +1,4 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.fragment_schedule_daily.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.support.v7.widget.LinearSmoothScroller
-import android.util.DisplayMetrics
-
 
 
 class DailyFragment : AppCompatDialogFragment() {
@@ -49,9 +46,12 @@ class DailyFragment : AppCompatDialogFragment() {
 
         initDailyView()
         setupDateSelector()
-
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateReport()
+    }
     private fun initDailyView() {
         bookService.get{
             updateAdapter(it)

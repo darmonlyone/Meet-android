@@ -1,4 +1,4 @@
-package com.example.meet.UI.Schedule
+package com.example.meet.UI.Schedule.Daily
 
 import android.annotation.SuppressLint
 import com.example.meet.Models.RoomBookerModel
