@@ -1,17 +1,22 @@
 package com.example.meet.UI.Schedule
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDialogFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.meet.Manager.Validator
+import com.example.meet.Manager.TimeDialog
 import com.example.meet.Models.DateModel
 import com.example.meet.Models.RoomBookerModel
 import com.example.meet.Models.TimeModel
@@ -20,11 +25,9 @@ import com.example.meet.Services.BookService
 import kotlinx.android.synthetic.main.fragment_schedule.*
 import java.util.*
 import kotlin.collections.ArrayList
-import android.content.DialogInterface
 
 
-
-
+@Suppress("NAME_SHADOWING")
 class ScheduleFragment : AppCompatDialogFragment() {
 
     private lateinit var alertDialog: AlertDialog
@@ -42,22 +45,24 @@ class ScheduleFragment : AppCompatDialogFragment() {
     private lateinit var bookService: BookService
 
     @SuppressLint("SetTextI18n")
-    private val datePickerListener: DatePickerDialog.OnDateSetListener = DatePickerDialog.OnDateSetListener{
-            _: DatePicker, year: Int, month: Int, day: Int ->
+    private val datePickerListener: DatePickerDialog.OnDateSetListener =
+        DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
 
-        dateTextView.text = "$day/ $month/ $year"
-    }
+            dateTextView.text = "$day/ $month/ $year"
+        }
 
     @SuppressLint("SetTextI18n")
-    private val timePickerListener: TimePickerDialog.OnTimeSetListener = TimePickerDialog.OnTimeSetListener(){
-            _: TimePicker, hour: Int, minute: Int ->
+    private val timePickerListener: TimePickerDialog.OnTimeSetListener =
+        TimePickerDialog.OnTimeSetListener { _: TimePicker, hour: Int, minute: Int ->
 
-        timeTextView.text = "${"%02d".format(hour)}: ${"%02d".format(minute)}"
-    }
+            timeTextView.text = "${"%02d".format(hour)}: ${"%02d".format(minute)}"
+        }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
+    @SuppressLint("NewApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,7 +75,7 @@ class ScheduleFragment : AppCompatDialogFragment() {
         setupAction()
     }
 
-    private fun setupFragment(){
+    private fun setupFragment() {
         dailyFragment = DailyFragment()
         fragmentManager!!.beginTransaction()
             .replace(R.id.schedule_report_frameLayout, dailyFragment)
@@ -80,8 +85,8 @@ class ScheduleFragment : AppCompatDialogFragment() {
     private fun setupActiveTimeSpinner() {
         activeTimeSpinner = popupInputDialogView.findViewById(R.id.book_active_time) as Spinner
 
-        val arraMin = RoomBookerModel.activeMin.toList().sortedBy {
-                (_, value) -> value
+        val arraMin = RoomBookerModel.activeMin.toList().sortedBy { (_, value) ->
+            value
         }.reversed().toMap()
         val spinnerArray = ArrayList<String>()
         for (i in arraMin)
@@ -97,9 +102,11 @@ class ScheduleFragment : AppCompatDialogFragment() {
         activeTimeSpinner.adapter = adapter
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    private fun setupAction(){
+    private fun setupAction() {
 
         add_booking.setOnClickListener {
             alertDialog.show()
@@ -124,16 +131,13 @@ class ScheduleFragment : AppCompatDialogFragment() {
             if (validator.validateEmpty(title)) {
                 titleEditText.requestFocus()
                 return@setOnClickListener
-            }
-            else if (validator.validateEmpty(info)){
+            } else if (validator.validateEmpty(info)) {
                 infoEditText.requestFocus()
                 return@setOnClickListener
-            }
-            else if (validator.validateEquals(dateText, "Select Date")){
+            } else if (validator.validateEquals(dateText, "Select Date")) {
                 dateTextView.callOnClick()
                 return@setOnClickListener
-            }
-            else if (validator.validateEquals(timeText, "Select Time")){
+            } else if (validator.validateEquals(timeText, "Select Time")) {
                 timeTextView.callOnClick()
                 return@setOnClickListener
             }
@@ -141,17 +145,17 @@ class ScheduleFragment : AppCompatDialogFragment() {
             val date = DateModel(dateText)
             val time = TimeModel(timeText)
 
-            val roomBookerModel = RoomBookerModel(title,info,date,time,activeTime)
+            val roomBookerModel = RoomBookerModel(title, info, date, time, activeTime)
 
-            if(dailyFragment.updateAdapter(roomBookerModel)){
-                bookService.insert(roomBookerModel,onSuccessListener = {
+            if (dailyFragment.updateAdapter(roomBookerModel)) {
+                bookService.insert(roomBookerModel, onSuccessListener = {
                     titleEditText.setText("")
                     infoEditText.setText("")
                     dateTextView.text = "Select Date"
                     timeTextView.text = "Select Time"
                     alertDialog.cancel()
                 })
-            }else{
+            } else {
                 val builder = AlertDialog.Builder(context!!)
                 builder.setMessage("This time on this have booked")
                     .setCancelable(false)
@@ -170,12 +174,14 @@ class ScheduleFragment : AppCompatDialogFragment() {
             val year = calmin.get(Calendar.YEAR)
             val month = calmin.get(Calendar.MONTH)
             val calmax = Calendar.getInstance()
-            calmax.add(Calendar.DATE,29)
-            val datePickerDialog = DatePickerDialog(context!!,
-                datePickerListener,year,month,day)
+            calmax.add(Calendar.DATE, 29)
+            val datePickerDialog = DatePickerDialog(
+                context!!,
+                datePickerListener, year, month, day
+            )
             datePickerDialog.datePicker.minDate = calmin.timeInMillis
             datePickerDialog.datePicker.maxDate = calmax.timeInMillis
-            datePickerDialog.datePicker.updateDate(year,month,day)
+            datePickerDialog.datePicker.updateDate(year, month, day)
             datePickerDialog.show()
         }
 
@@ -183,14 +189,29 @@ class ScheduleFragment : AppCompatDialogFragment() {
             val calendar = Calendar.getInstance()
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
-            val timePickerDialog = TimePickerDialog(context!!,timePickerListener,hour,minute,true)
-            timePickerDialog.updateTime(hour,minute)
+            val timePickerDialog = TimeDialog(context!!, timePickerListener, hour, minute, true)
+            timePickerDialog.updateTime(10,0)
+            timePickerDialog.timePicker.setOnTimeChangedListener { timePicker: TimePicker, hour: Int, minute: Int ->
+
+                val minutes: Int = when {
+                    minute <= 7 -> 0
+                    minute <= 22 -> 15
+                    minute <= 37 -> 30
+                    minute <= 52 -> 45
+                    minute >= 8 -> 15
+                    minute >= 23 -> 30
+                    minute >= 38 -> 45
+                    minute >= 53 -> 0
+                    else -> 0
+                }
+                timePickerDialog.updateTime(hour, minutes)
+            }
             timePickerDialog.show()
         }
     }
 
     @SuppressLint("InflateParams")
-    private fun setupBookingDialogPopup(){
+    private fun setupBookingDialogPopup() {
 
         val layoutInflater = LayoutInflater.from(context!!)
         popupInputDialogView = layoutInflater.inflate(R.layout.popup_add_booking, null)
@@ -209,3 +230,4 @@ class ScheduleFragment : AppCompatDialogFragment() {
 
     }
 }
+
