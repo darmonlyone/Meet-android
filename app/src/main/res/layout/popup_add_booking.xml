@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:gravity="end"
+                    android:text="Title: " />
+
+            <EditText
+                    android:id="@+id/book_title"
+                    android:hint="Booking Title"
+                    android:inputType="text" />
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:gravity="end"
+                    android:text="Information: " />
+
+            <EditText
+                    android:id="@+id/book_info"
+                    android:hint="Information"
+                    android:inputType="text"/>
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:gravity="end"
+                    android:text="Date: " />
+
+            <TextView
+                    android:textSize="8pt"
+                    style="@android:style/Widget.Button"
+                    android:clickable="true"
+                    android:id="@+id/book_date"
+                    android:text="Select Date"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="230dp" android:focusable="true"
+            />
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:gravity="end"
+                    android:text="Time: " />
+
+            <TextView
+                    android:textSize="8pt"
+                    style="@android:style/Widget.Button"
+                    android:clickable="true"
+                    android:id="@+id/book_time"
+                    android:text="Select Time"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="230dp" android:focusable="true"
+            />
+        </TableRow>
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:gravity="end"
+                    android:text="Active time: " />
+
+            <Spinner
+                    android:textSize="8pt"
+                    android:id="@+id/book_active_time"
+                    android:text="pick time"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="230dp"/>
+        </TableRow>
+        <TableRow android:gravity="center_horizontal">
+
+            <Button
+                    android:id="@+id/button_cancel_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"/>
+
+
+            <Button
+                    android:id="@+id/button_confirm_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Book"
+                    android:textSize="20dp"
+                    android:textAllCaps="false"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>

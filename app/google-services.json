@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "818526200464",
+    "firebase_url": "https://meet-book-meeting.firebaseio.com",
+    "project_id": "meet-book-meeting",
+    "storage_bucket": "meet-book-meeting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818526200464:android:d5a5529e5a020256",
+        "android_client_info": {
+          "package_name": "com.example.meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818526200464-e4oo6prh6t792l0ljmtbquis2a5j8g2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meet",
+            "certificate_hash": "e603b759d023db00ee859d3c2d3c4aac2b9db2b6"
+          }
+        },
+        {
+          "client_id": "818526200464-r165prvhamo4nan6lqmk5h5r5ovdt42g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY8uWPCVDsJfVfuDNhPw7lVlDsxQwCWcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818526200464-r165prvhamo4nan6lqmk5h5r5ovdt42g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

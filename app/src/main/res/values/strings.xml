@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Meet</string>
+    <string name="title_home">Home</string>
+    <string name="title_schedule">Calendar</string>
+    <string name="title_menu">Menu</string>
+    <string name="textview">TextView</string>
+    <string name="MockDate">Today, 20 JUN 2019</string>
+</resources>
