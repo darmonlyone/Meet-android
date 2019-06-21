@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.TimePicker
 
 import android.R
+import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -101,17 +102,14 @@ class TimeDialog
         /* do nothing */
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun show() {
         super.show()
         getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-            if (timePicker.validateInput()) {
                 this@TimeDialog.onClick(this@TimeDialog, DialogInterface.BUTTON_POSITIVE)
                 // Clearing focus forces the dialog to commit any pending
                 // changes, e.g. typed text in a NumberPicker.
                 timePicker.clearFocus()
                 dismiss()
-            }
         }
     }
 

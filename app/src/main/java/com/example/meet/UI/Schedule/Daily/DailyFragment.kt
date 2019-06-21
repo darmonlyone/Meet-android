@@ -42,7 +42,7 @@ class DailyFragment : AppCompatDialogFragment() {
 
         bookService = BookService()
         choosingDate = Date()
-        choosing_date_textView.text = formattedDate("dd EEE yyyy", choosingDate)
+        choosing_date_textView.text = formattedDate("EEE, dd MMMM yyyy", choosingDate)
 
         initDailyView()
         setupDateSelector()
@@ -62,7 +62,7 @@ class DailyFragment : AppCompatDialogFragment() {
         dailyReportRecyclerView.adapter = dailyReportAdapter
 
         dailyDateAdapter = DailyDateAdapter(this)
-        dailyDateRecyclerView.layoutManager= LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        dailyDateRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         dailyDateRecyclerView.adapter = dailyDateAdapter
     }
 
@@ -93,7 +93,7 @@ class DailyFragment : AppCompatDialogFragment() {
         }
         dailyReportAdapter.notifyDataSetChanged()
 
-        choosing_date_textView.text = formattedDate("dd EEE yyyy",choosingDate)
+        choosing_date_textView.text = formattedDate("EEE, dd MMMM yyyy",choosingDate)
     }
 
     private fun setupDateSelector(){

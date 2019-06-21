@@ -15,4 +15,7 @@ class TimeModel{
         this.minute = minute
     }
 
+    override fun toString(): String {
+        return "${"%02d".format(hour)}: ${"%02d".format(minute)}"
+    }
 }

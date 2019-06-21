@@ -13,7 +13,6 @@ class RoomBookerModel{
 
     companion object {
         val activeMin: HashMap<String, Int> = hashMapOf(
-            "15 min" to 15,
             "30 min" to 30,
             "1 hour" to 60,
             "1 half hour" to 90,

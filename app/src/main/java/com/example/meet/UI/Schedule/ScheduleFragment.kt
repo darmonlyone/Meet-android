@@ -210,7 +210,7 @@ class ScheduleFragment : AppCompatDialogFragment() {
             val minute = calendar.get(Calendar.MINUTE)
             val timePickerDialog = TimeDialog(context!!, timePickerListener, hour, minute, true)
             timePickerDialog.updateTime(10,0)
-            timePickerDialog.timePicker.setOnTimeChangedListener { timePicker: TimePicker, hour: Int, minute: Int ->
+            timePickerDialog.timePicker.setOnTimeChangedListener { _: TimePicker, hour: Int, minute: Int ->
 
                 val minutes: Int = when (minute) {
                     in 0..7 -> 0
